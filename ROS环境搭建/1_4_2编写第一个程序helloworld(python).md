@@ -35,6 +35,15 @@ if __name__ == "__main__":
     main()
 ```
 
+✏️ **编辑 `CMakeList.txt`**
+找到对应的语句进行添加
+``` bash
+catkin_install_python(PROGRAMS
+    scripts/hello_node.py  # 这里的路径指向你的 Python 代码
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+```
+
 ---
 
 ### **2️⃣ 运行 Python 版 ROS 节点**
@@ -68,3 +77,40 @@ chmod +x ~/catkin_ws/src/my_hello_pkg/scripts/hello_node.py
 ### **✅ 什么时候选 C++，什么时候选 Python？**
 - **用 C++**（`roscpp`）：需要高性能、实时性，如 **机器人控制**、**图像处理**。
 - **用 Python**（`rospy`）：开发快、调试方便，如 **数据分析**、**调试脚本**、**非实时任务**。
+
+
+有时候我们执行rosrun时会碰到错误 `bad interpreter: No such file or directory` 中，**根本原因是 `#!/usr/bin/env python` 找不到 `python` 解释器**。  
+
+**创建软链接的原因**：
+1. **兼容性问题**：
+   - 有些系统默认安装 **Python 3**，但没有 `python`（只有 `python3`）。
+   - 旧代码可能使用 `#!/usr/bin/env python`，但 `python` 在你的系统里可能不存在。
+
+2. **解决 `rosrun` 无法找到 Python 解释器的问题**：
+   - ROS 旧版本（如 Noetic）默认使用 **Python 2**，但 Ubuntu 20.04 以后默认安装 **Python 3**，可能没有 `python` 命令。
+   - 你可以用软链接让 `python` 指向 `python3`，这样旧脚本也能运行：
+     ```bash
+     sudo ln -s /usr/bin/python3 /usr/bin/python
+     ```
+   - **这样，`#!/usr/bin/env python` 也能找到 `python3`，不会报错**。
+
+---
+
+## **🛠 是否需要创建软链接？**
+- **如果你的 `hello_vscode_test.py` 里是 `#!/usr/bin/env python3`，就不需要软链接**。
+- **如果是 `#!/usr/bin/env python`，但 `python` 命令不存在，你就需要创建软链接**。
+
+---
+
+## **📌 总结**
+💡 **当 `python` 命令不存在，但 `python3` 存在时，你可以创建软链接**：
+```bash
+sudo ln -s /usr/bin/python3 /usr/bin/python
+```
+这样旧的 `python` 代码仍然可以运行，避免 `bad interpreter` 错误。
+
+你可以先运行：
+```bash
+which python
+```
+如果没有输出，说明 `python` 解释器不存在，你就需要创建软链接。

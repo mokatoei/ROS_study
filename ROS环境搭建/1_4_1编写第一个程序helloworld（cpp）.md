@@ -137,7 +137,7 @@ my_hello_pkg/            # ROS 包
         ``` bash
         roscore
         ```
-     不要关闭这个终端，在新终端执行下面的命令。
+     不要关闭这个终端，在新终端执行下面的命令。  
     2. 运行 Hello World 节点
      ``` bash
         source ./devel/setup.bash 
