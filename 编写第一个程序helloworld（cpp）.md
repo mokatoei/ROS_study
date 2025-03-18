@@ -133,19 +133,19 @@ my_hello_pkg/            # ROS 包
     ```
 
 7. **运行 Hello World 程序**
- 1. 首先启动 ROS
- ``` bash
- roscore
- ```
- 不要关闭这个终端，在新终端执行下面的命令。
- 2. 运行 Hello World 节点
- ```bash
-  source ./devel/setup.bash 
-  rosrun my_hello_pkg hello_world_node
- ```
- 第一条语句的作用是加载ROS工作空间的环境变量，运行 source ./devel/setup.bash 之后，ROS环境变量，使 `rosrosrun 和roslaunch 能够找到你的包。
- 终端应该输出：
- ``` css 
-  [ INFO] [时间戳]: Hello, ROS World!
- ```
+    1. 首先启动 ROS  
+        ``` bash
+        roscore
+        ```
+     不要关闭这个终端，在新终端执行下面的命令。
+    2. 运行 Hello World 节点
+     ``` bash
+        source ./devel/setup.bash 
+        rosrun my_hello_pkg hello_world_node
+     ```
+     第一条语句的作用是加载ROS工作空间的环境变量，运行 source ./devel/setup.bash 之后，ROS环境变量，使 `rosrosrun 和roslaunch 能够找到你的包。
+     终端应该输出：
+     ``` css 
+      [ INFO] [时间戳]: Hello, ROS World!
+     ```
 ---
